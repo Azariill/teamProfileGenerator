@@ -15,12 +15,16 @@
     font-weight: bold;
 }
 .card{
-    box-shadow: 5px 1px 10px #0000005c;
+    box-shadow: 5px 5px 5px #8383836b;
     border-radius: 25px;
+    margin-top: 20px;
+
+
     
 }
 .card-background{
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     width: 100.5%;
+ 
 }
