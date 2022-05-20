@@ -24,5 +24,5 @@ test('getSchool() should return intern.school', () => {
 test('make sure that getRole() returns employee', () =>{
     const employee = new Intern ('Scott', 11115, 'heierms@gmail.com','UT');
 
-    expect(employee.getRole()).toBe('Intern');
+    expect(employee.getRole()).toBe("<i class=\"fa-solid fa-user-graduate\"></i> Intern");
 })

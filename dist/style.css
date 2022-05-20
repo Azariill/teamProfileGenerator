@@ -1,0 +1,25 @@
+.card-body h2{
+    font-size: 38px;
+    font-weight: bolder;
+}
+.card-body h3{
+    font-size: 32px;
+     
+
+}
+.card-body p{
+    margin-top: -8px;
+    box-shadow: 5px 1px 10px grey;
+    font-size: 18px;
+    font-weight: bold;
+}
+.card{
+    box-shadow: 5px 1px 10px #0000005c;
+    border-radius: 25px;
+    
+}
+.card-background{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 100.5%;
+}

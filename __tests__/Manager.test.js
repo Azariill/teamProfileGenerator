@@ -18,5 +18,5 @@ test('create a new employee with expected values', ()=>{
 test('make sure that getRole() returns employee', () =>{
     const employee = new Manager('Scott', 11115, 'heierms@gmail.com','Azarill');
 
-    expect(employee.getRole()).toBe('Manager');
+    expect(employee.getRole()).toBe("<i class='fa-solid fa-mug-hot'></i> Manager");
 })

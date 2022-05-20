@@ -2,12 +2,13 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const internal = require('stream');
 const Engineer = require('./lib/Engineer');
+const generatePage = require('./src/markup');
 
 
 // takes the markup and writes it to an index file
-const writeFile = (markUp) =>{
+const writeFile = (pageHTML) =>{
     return new Promise((resolve,reject) =>{
-        fs.writeFile(`./dist/index.html`,markUp,err=>{
+        fs.writeFile(`./dist/index.html`,pageHTML,err=>{
             if(err){
                 reject(err);
                 return;
@@ -114,15 +115,15 @@ const engineerPrompt = currentData =>{
                 type:'input',
                 name: 'name',
                 message: 'What is the engineers name?',
-                // validate: name =>{
-                //     if(name){
-                //         return true;
-                //     }
-                //     else{
-                //         console.log('What is the engineers name?')
-                //         return false;
-                //     }
-                // }
+                validate: name =>{
+                    if(name){
+                        return true;
+                    }
+                    else{
+                        console.log('What is the engineers name?')
+                        return false;
+                    }
+                }
                 
            
             },
@@ -143,7 +144,7 @@ const engineerPrompt = currentData =>{
             {
                 type:'input',
                 name: 'email',
-                message: 'What is the Engineers email address',
+                message: 'What is the Engineers email address?',
                 validate: email =>{
                     function isValid(email) {
                             var regx = /\S+@\S+\.\S+/;
@@ -187,7 +188,7 @@ const engineerPrompt = currentData =>{
                     return engineerPrompt(currentData);
                 }
                 else if(choice === 'Intern'){
-                    console.log('internprompt');
+                    
                     return internPrompt(currentData);
                 }
                 else{
@@ -297,11 +298,29 @@ const internPrompt = currentData =>{
     }
 
 
+
 startPrompt()
 
 .then(data =>{
-    return engineerPrompt(data)
+    if(data.add === 'Engineer'){
+        return engineerPrompt(data)
+    }
+    else if(data.add === 'Intern'){
+        return internPrompt(data);
+    }
+    else{
+        return data
+    }
 })
 .then(currentData =>{
-    console.log(currentData);
+    return generatePage(currentData);
+    
 })
+.then(pageHTML =>{
+    return writeFile(pageHTML);
+})
+.then(writeFileResponse =>{
+    console.log(writeFileResponse);
+})
+
+

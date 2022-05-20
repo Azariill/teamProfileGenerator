@@ -18,7 +18,7 @@ test('create a new employee with expected values', ()=>{
 test('return a website link to github', () => {
     const engineer = new Engineer('Time', 2,'enen@gmail.com', 'Azariill');
 
-    expect(engineer.getGithub()).toEqual(`github.com/${engineer.github}`);
+    expect(engineer.getGithub()).toEqual(`<a href=\"github.com/Azariill\">  Azariill</a>`);
 })
 
 
@@ -27,5 +27,5 @@ test('return a website link to github', () => {
 test('make sure that getRole() returns employee', () =>{
     const employee = new Engineer('Scott', 11115, 'heierms@gmail.com','Azarill');
 
-    expect(employee.getRole()).toBe('Engineer');
+    expect(employee.getRole()).toBe("<i class=\"fa-solid fa-glasses\"></i> Engineer");
 })

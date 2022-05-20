@@ -24,18 +24,18 @@ test('test get name method', () => {
 test('test getId method return number', ()=>{
     const employee = new Employee('Scott', 1151, 'heierms@gmail.com');
 
-    expect(employee.getId()).toEqual(expect.any(Number));
+    expect(employee.getId()).toEqual("ID : 1151");
 
 })
 
 test('test getEmail() method to return email', () =>{
     const employee = new Employee('Scott', 1151, 'heierms@gmail.com');
 
-    expect(employee.getEmail()).toEqual(employee.email);
+    expect(employee.getEmail()).toEqual("Email : <a href=\"mailTo:heierms@gmail.com\"> heierms@gmail.com</a>");
 })
 
 test('make sure that getRole() returns employee', () =>{
     const employee = new Employee('Scott', 11115, 'heierms@gmail.com');
 
-    expect(employee.getRole()).toBe('Employee');
+    expect(employee.getRole()).toBe("Employee");
 })
