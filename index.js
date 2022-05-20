@@ -1,7 +1,5 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const internal = require('stream');
-const Engineer = require('./lib/Engineer');
 const generatePage = require('./src/markup');
 
 
@@ -23,13 +21,12 @@ const writeFile = (pageHTML) =>{
 
 };
 
+// Initial inquirer prompts
 const startPrompt = () =>{
 
-    //return inquirer prompts
-    return inquirer.prompt([
-
-        // prompt the user for managers information
-        // prompts for manager name
+    // prompt the user for managers information
+    return inquirer.prompt([   
+        // prompts for manager name validates that something was entered for name 
         {
             type:'input',
             name: 'name',
@@ -44,7 +41,7 @@ const startPrompt = () =>{
                 }
             }
         },
-        // ask for project managers id number
+        // ask for project managers id number and validates that a number was entered 
         {
             type:'input',
             name: 'id',
@@ -59,6 +56,7 @@ const startPrompt = () =>{
                 }
             }
         },
+        // asks for  project managers email
         {
             type:'input',
             name: 'email',
@@ -91,26 +89,30 @@ const startPrompt = () =>{
                 }
             }
         },
+        // asks if they would like to add and engineer intern or be finished
         {
             type: 'list',
             name: 'add',
             message: 'Would you like to add a new Engineer or Intern?',
-            choices: ['Engineer', 'Intern', 'Neither']
+            choices: ['Engineer', 'Intern', 'Finished']
         }
     ])
 }
 
 const engineerPrompt = currentData =>{
-        //return inquirer prompts
+        console.log(`
+        ==================
+        Add a New Engineer
+        ==================
+        `)
         
+        // if enigeers array doesn't exist make it
         if(!currentData.engineers){
             currentData.engineers = [];
         }
-        
+       // start engineer prompts 
         return inquirer.prompt([
-
-
-            // promp the user for managers information
+        // ask for the engineers name
             {
                 type:'input',
                 name: 'name',
@@ -127,6 +129,7 @@ const engineerPrompt = currentData =>{
                 
            
             },
+            // ask for the engineers id number and validate that its a number
             {
                 type:'input',
                 name: 'id',
@@ -141,6 +144,7 @@ const engineerPrompt = currentData =>{
                     }
                 }
             },
+            // ask for email and validate it
             {
                 type:'input',
                 name: 'email',
@@ -158,6 +162,7 @@ const engineerPrompt = currentData =>{
                 }
     
             },
+            // ask for github and validate
             {
                 type:'input',
                 name: 'github',
@@ -172,14 +177,16 @@ const engineerPrompt = currentData =>{
                     }
                 }
             },
+            // ask if they would like to add more or finish
             {
                 type: 'list',
                 name: 'add',
                 message: 'Would you like to add a new Engineer or Intern?',
-                choices: ['Engineer', 'Intern', 'Neither'],
+                choices: ['Engineer', 'Intern', 'Finished'],
                 
             }
         ])
+        // check was the choice was and prompt accordingly
         .then(engineerData =>{
             let choice = engineerData.add;
          
@@ -192,7 +199,7 @@ const engineerPrompt = currentData =>{
                     return internPrompt(currentData);
                 }
                 else{
-                    console.log('exit the eg prompts')
+                    console.log('Finished')
                     return currentData;
                 }
 
@@ -200,8 +207,13 @@ const engineerPrompt = currentData =>{
     
     }
 const internPrompt = currentData =>{
+    console.log(`
+    ==================
+    Add a New Intern
+    ==================
+    `)
         //return inquirer prompts
-        
+        // create an array for interns if there is not one
         if(!currentData.interns){
             currentData.interns = [];
         }
@@ -209,7 +221,7 @@ const internPrompt = currentData =>{
         return inquirer.prompt([
 
 
-            //promp the user for managers information
+            //ask for intern name
             {
                 type:'input',
                 name: 'name',
@@ -226,6 +238,7 @@ const internPrompt = currentData =>{
                 
            
             },
+            // ask for intern id
             {
                 type:'input',
                 name: 'id',
@@ -240,6 +253,7 @@ const internPrompt = currentData =>{
                     }
                 }
             },
+            // ask for intern email
             {
                 type:'input',
                 name: 'email',
@@ -257,6 +271,7 @@ const internPrompt = currentData =>{
                 }
     
             },
+            //ask for intern school
             {
                 type:'input',
                 name: 'school',
@@ -271,14 +286,16 @@ const internPrompt = currentData =>{
                     }
                 }
             },
+            // ask for more team members or finish
             {
                 type: 'list',
                 name: 'add',
                 message: 'Would you like to add a new Engineer or Intern?',
-                choices: ['Engineer', 'Intern', 'Neither'],
+                choices: ['Engineer', 'Intern', 'Finished'],
                 
             }
         ])
+        // check what the answer was
         .then(internData =>{
             let choice = internData.add; 
 
@@ -298,9 +315,10 @@ const internPrompt = currentData =>{
     }
 
 
-
+// startup prompt
 startPrompt()
 
+// figure out was the first response was to adding more team member was 
 .then(data =>{
     if(data.add === 'Engineer'){
         return engineerPrompt(data)
@@ -312,15 +330,19 @@ startPrompt()
         return data
     }
 })
+// once all data is recieved run generatePage
 .then(currentData =>{
     return generatePage(currentData);
     
 })
+// once you have the page html write it to index.html
 .then(pageHTML =>{
     return writeFile(pageHTML);
 })
+// write the response to the file write
 .then(writeFileResponse =>{
-    console.log(writeFileResponse);
+    console.log(writeFileResponse.message);
 })
-
+// watch for errors
+.catch(err => console.log(err));
 

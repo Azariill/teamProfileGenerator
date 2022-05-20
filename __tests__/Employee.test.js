@@ -13,13 +13,15 @@ test('create a new employee with expected values', ()=>{
     expect(employee.email).toBe('heierms@gmail.com');
 });
 
-test('test get name method', () => {
-    
+// verify getName is working as intended
+test('test getName() method', () => {
+    // creates a new employee
     const employee = new Employee('Scott','1051615', 'heierms@gmail.com');
-      
+    // get name should === the assigned name
     expect(employee.getName()).toBe('Scott');
 
 });
+
 
 test('test getId method return number', ()=>{
     const employee = new Employee('Scott', 1151, 'heierms@gmail.com');

@@ -4,9 +4,11 @@ const Intern = require('../lib/Intern');
 const Manager = require('../lib/Manager');
 
 
-
+// takes the engineerArray from currentData and generates enigneer HTML
 const generateEngineer = engineerArray =>{
+    // checks to make sure engineer array has data
     if(engineerArray){
+        // takes enigneer data and formats it into cards and returns it to main markup
         return`
             ${engineerArray
                 .map(({name, id, email, github}) =>{
@@ -26,22 +28,17 @@ const generateEngineer = engineerArray =>{
                     </div>
                 </div>`
                     
-                }) }
-        
-`
+                }) }`
             }
-            else {return ''}
+    else { return '' }
 
     }
-
-
-
-
+// takes internArray data from currentData and generates Intern HTML
 const generateIntern = internArray =>{
+    // verifies that there is interArray data
    if(internArray){
-    return`
-    
-
+       // if there is array data formats the data into html cards
+     return`
     ${internArray
         .map(({name, id, email, school}) =>{
             const intern = new Intern(name,id,email,school);
@@ -59,13 +56,8 @@ const generateIntern = internArray =>{
                 <p class="card-text border border-dark p-3 rounded"> GitHub : ${intern.getSchool()}</p>
             </div>
         </div>`
-        }) }
-
-      
-    
-`
-    }
-    else {return ''}
+        }) }`
+    }else {return ''}
 
 }
 
@@ -73,13 +65,14 @@ const generateIntern = internArray =>{
 
 
 
-
+// exports main function to generate html page
 module.exports = currentData => {
+    // takes inquirer data and deconstructs it
     const {engineers,interns,...managerData} = currentData;
-   
+   // generates new manager object
     const manager = new Manager(managerData.name,managerData.id,managerData.email,managerData.officeNumber);
     
-
+    // takes all data and generates a webpage with it for team
     return`
     <!DOCTYPE html>
     <html lang="en">
