@@ -28,7 +28,8 @@ const generateEngineer = engineerArray =>{
                     </div>
                 </div>`
                     
-                }) }`
+                }) 
+                .join('')}`
             }
     else { return '' }
 
@@ -56,7 +57,8 @@ const generateIntern = internArray =>{
                 <p class="card-text border border-dark p-3 rounded"> School : ${intern.getSchool()}</p>
             </div>
         </div>`
-        }) }`
+        })
+        .join('') }`
     }else {return ''}
 
 }
