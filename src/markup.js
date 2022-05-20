@@ -53,7 +53,7 @@ const generateIntern = internArray =>{
             <div class="card-body">
                 <p class="card-text border border-dark p-3 rounded">${intern.getId()}</p>
                 <p class="card-text border border-dark p-3 rounded">${intern.getEmail()}</p>
-                <p class="card-text border border-dark p-3 rounded"> GitHub : ${intern.getSchool()}</p>
+                <p class="card-text border border-dark p-3 rounded"> School : ${intern.getSchool()}</p>
             </div>
         </div>`
         }) }`
